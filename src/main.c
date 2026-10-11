@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void displayMenu()
+int displayMenu()
 {
 	int opt = 0;
 
@@ -16,12 +16,36 @@ void displayMenu()
 		printf("Select Option: ");
 		scanf("%d", &opt);
 	}while(opt < 0 || opt > 3);
+
+	return opt;
 }
 
 
 int main()
 {
-	displayMenu();
+	bool isQuitting = false;
+
+	do
+	{
+		int opt = displayMenu();
+	
+		switch(opt)
+		{
+			case 0:
+				isQuitting = true;
+				break;
+			case 1:
+				printf("option 1 selected\n");
+				break;
+			case 2:
+				printf("option 2 selected\n");
+				break;
+			case 3: 
+				printf("option 3 selected\n");
+				break;
+		}
+
+	}while (!isQuitting);
 
 	return 0;
 }
