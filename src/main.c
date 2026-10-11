@@ -15,6 +15,12 @@ int displayMenu()
 		printf("------------------------------\n");
 		printf("Select Option: ");
 		scanf("%d", &opt);
+		
+		if (opt < 0 || opt > 3)
+		{
+			printf("\nError! Option value must be between 0-3 (inclusive)\n\n");
+		}
+
 	}while(opt < 0 || opt > 3);
 
 	return opt;
@@ -32,6 +38,7 @@ int main()
 		switch(opt)
 		{
 			case 0:
+				printf("\nQuitting game\n\n");
 				isQuitting = true;
 				break;
 			case 1:
@@ -41,7 +48,7 @@ int main()
 				printf("option 2 selected\n");
 				break;
 			case 3: 
-				printf("option 3 selected\n");
+				printf("\nMissile arming code is: DEFCON1\n\n");
 				break;
 		}
 
