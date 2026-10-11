@@ -1,4 +1,54 @@
 #include <stdio.h>
+#include <string.h>
+
+typedef struct Coordinates
+{
+	int x;
+	int y;
+} Coordinates;
+
+typedef enum
+{
+	EXPLOSIVE,
+	NUCLEAR
+} Warhead;
+
+typedef struct Target
+{
+	Coordinates Coordinates;
+} Target;
+
+typedef struct Missile
+{
+	Coordinates coordinates;
+	Warhead warhead;
+	Target target;	
+
+	bool armed;
+
+	void (*arm)(struct Missile *missile);
+
+} Missile;
+
+void armMissile(struct Missile *missile)
+{
+	char password[8];
+	
+	printf("Input arming code: ");
+	scanf(" %7s", password);
+
+	scanf("%*[^\n]"); getchar(); // Clears input buffer
+
+	if(strcmp(password,"DEFCON1") == 0)
+	{
+		missile->armed = true;
+		printf("Correct password - Missile is armed");	
+	}
+	else
+	{
+		printf("Incorrect password - Missile remains unarmed");
+	}
+}
 
 int displayMenu()
 {
@@ -14,8 +64,8 @@ int displayMenu()
 		printf("- 3 - Display launch code\n");
 		printf("------------------------------\n");
 		printf("Select Option: ");
-		scanf("%d", &opt);
-		
+		scanf(" %d", &opt);
+
 		if (opt < 0 || opt > 3)
 		{
 			printf("\nError! Option value must be between 0-3 (inclusive)\n\n");
@@ -29,6 +79,9 @@ int displayMenu()
 
 int main()
 {
+	Missile missile;
+	missile.arm = armMissile;
+
 	bool isQuitting = false;
 
 	do
@@ -42,7 +95,8 @@ int main()
 				isQuitting = true;
 				break;
 			case 1:
-				printf("option 1 selected\n");
+				missile.arm(&missile);
+				//setTarget();
 				break;
 			case 2:
 				printf("option 2 selected\n");
